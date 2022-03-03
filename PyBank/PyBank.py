@@ -4,8 +4,7 @@ import numpy as np
 from numpy import average
 
 rows = []
-element_in_lists = False
-element_in_list = False
+
 
 file = open('budget_data.csv')
 csvreader = csv.reader(file)
