@@ -2,41 +2,46 @@ import csv
 import pprint
 import numpy as np
 from numpy import average
+import pandas as pd
 
 rows = []
 
 
-file = open('budget_data.csv')
-csvreader = csv.reader(file)
-header = next(csvreader)
-#print(header)
-for row in csvreader:
-    rows.append(row)
+df = pd.read_csv('budget_data.csv')
 
-# split the list:
-res1, res2 = map(list, zip(*rows))
+total_month = len(df['Date'])
+print(total_month)
 
-# change string to int:
-for i in range(0, len(res2)):
-    res2[i] = int(res2[i])
+total = sum(df['Profit/Losses'])
 
+df['diff'] = df['Profit/Losses'].diff().fillna(0)
+
+print(df)
+
+average_change = sum(df['diff']) / (total_month - 1)
 
 
 
 print("Financial Analysis")
 print("----------------------")
-print(f'Total Months: {len(res1)}')
-print(f'Total: {sum(res2)}')
-print(f'Average Change: ${np.round(average(res2),2)}')
+print(f'Total Months: {total_month}')
+print(f'Total: ${total}')
+print(f'Average Change: ${np.round(average_change,2)}')
 # search the greatest Increase from the original list:
-Increase = max(res2)
-for Great in rows:
-    if str(Increase) in Great:
-        print(f'Greatest Increase in Profits: {Great}')
+Great = df.loc[df['diff'] == max(df['diff'])]
+#print(Great)
+DateG= Great.iloc[0]['Date']
+#print(DateG)
+DiffG= Great.iloc[0]['diff']
+#print(DiffG)
+print(f'Greatest Increase in Profits: {DateG} (${DiffG})')
         
 
 # search the greatest Decrease from the original list:
-Decrease = min(res2)
-for low in rows:
-    if str(Decrease) in low:
-        print(f'Greatest Decrease in Profits: {low}')
+low = df.loc[df['diff'] == min(df['diff'])]
+#print(low)
+DateG= low.iloc[0]['Date']
+#print(DateG)
+DiffG= low.iloc[0]['diff']
+#print(DiffG)
+print(f'Greatest Increase in Profits: {DateG} (${DiffG})')
