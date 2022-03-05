@@ -4,9 +4,6 @@ import numpy as np
 from numpy import average
 import pandas as pd
 
-rows = []
-
-
 df = pd.read_csv('budget_data.csv')
 
 total_month = len(df['Date'])
@@ -15,8 +12,6 @@ print(total_month)
 total = sum(df['Profit/Losses'])
 
 df['diff'] = df['Profit/Losses'].diff().fillna(0)
-
-print(df)
 
 average_change = sum(df['diff']) / (total_month - 1)
 
