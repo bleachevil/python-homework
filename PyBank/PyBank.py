@@ -39,4 +39,4 @@ DateG= low.iloc[0]['Date']
 #print(DateG)
 DiffG= low.iloc[0]['diff']
 #print(DiffG)
-print(f'Greatest Increase in Profits: {DateG} (${DiffG})')
+print(f'Greatest Decrease in Loss: {DateG} (${DiffG})')
